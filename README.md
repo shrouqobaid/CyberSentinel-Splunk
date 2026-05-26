@@ -7,7 +7,7 @@
 
 ---
 
-# 🛡️ CyberSentinel Architecture
+# CyberSentinel Architecture
 
 ```text
            +-------------------+
@@ -39,7 +39,7 @@
 ```
 ---
 
-# 🔍 <div dir="rtl" align="right">سيناريو التحقيق الأمني (Investigation Scenario)</div>
+# <div dir="rtl" align="right">سيناريو التحقيق الأمني (Investigation Scenario)</div>
 
 <div dir="rtl" align="right">
 
@@ -59,7 +59,7 @@
 
 ---
 
-# ⚙️ <div dir="rtl" align="right">المرحلة الأولى: Recon & Data Ingestion</div>
+# <div dir="rtl" align="right">المرحلة الأولى: Recon & Data Ingestion</div>
 
 <div dir="rtl" align="right">
 
@@ -69,7 +69,7 @@
 
 ---
 
-## 🔹 Environment Setup & Source Analysis
+## Environment Setup & Source Analysis
 
 ![Setup](screenshots/environment-setup.png)
 
@@ -81,7 +81,7 @@
 
 ---
 
-## 🔹 Ingestion Monitoring
+## Ingestion Monitoring
 
 ![Volume](screenshots/data-volume.png)
 
@@ -93,7 +93,7 @@
 
 ---
 
-# 🛠 <div dir="rtl" align="right">المرحلة الثانية: Threat Hunting & SPL Detection</div>
+# <div dir="rtl" align="right">المرحلة الثانية: Threat Hunting & SPL Detection</div>
 
 <div dir="rtl" align="right">
 
@@ -103,11 +103,11 @@
 
 ---
 
-## 🔎 Log Inspection & Failed Authentication Analysis
+## Log Inspection & Failed Authentication Analysis
 
 ![Logs](screenshots/raw-logs.png)
 
-![General](screenshots/auth-failure-query.png)
+![General](dashboards/auth-failure-query.png)
 
 <div dir="rtl" align="right">
 <i>تحليل سجلات Windows Event ID 4625 للكشف عن محاولات تسجيل الدخول الفاشلة واكتشاف أنماط Brute Force.</i>
@@ -115,9 +115,9 @@
 
 ---
 
-## 🎯 Precision SPL Detection
+## Precision SPL Detection
 
-![SPL](screenshots/brute-force-spl.png)
+![SPL](dashboards/brute-force-spl.png)
 
 <div dir="rtl" align="right">
 <i>إنشاء SPL Detection Logic لتحديد أكثر عناوين IP نشاطًا وربطها بالمحاولات المشبوهة.</i>
@@ -125,9 +125,9 @@
 
 ---
 
-# 💻 <div dir="rtl" align="right">Core SPL Detection Queries</div>
+# <div dir="rtl" align="right">Core SPL Detection Queries</div>
 
-## 🔐 Brute Force Detection
+## Brute Force Detection
 
 ```spl
 index=wineventlog EventCode=4625
@@ -138,7 +138,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-## 🌍 Top Attacking IP Addresses
+## Top Attacking IP Addresses
 
 ```spl
 index=wineventlog EventCode=4625
@@ -147,7 +147,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-## 👤 Targeted Accounts Detection
+## Targeted Accounts Detection
 
 ```spl
 index=wineventlog EventCode=4625
@@ -166,7 +166,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-## ⚡ High Frequency Authentication Attempts
+## High Frequency Authentication Attempts
 
 ```spl
 index=wineventlog EventCode=4625
@@ -177,7 +177,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 📊 <div dir="rtl" align="right">المرحلة الثالثة: Forensic Findings</div>
+# <div dir="rtl" align="right">المرحلة الثالثة: Forensic Findings</div>
 
 <div dir="rtl" align="right">
 
@@ -187,11 +187,11 @@ index=wineventlog EventCode=4625
 
 ---
 
-## 🌐 IP Activity & Attacker Tracking
+## IP Activity & Attacker Tracking
 
 ![IPs](screenshots/top-ips.png)
 
-![Map](screenshots/ip-activity.png)
+![Map](dashboards/ip-activity.png)
 
 ![Attacker](screenshots/attacker-id.png)
 
@@ -201,11 +201,11 @@ index=wineventlog EventCode=4625
 
 ---
 
-## 👥 Targeted Accounts Analysis
+## Targeted Accounts Analysis
 
 ![Targeted](screenshots/targeted-accounts.png)
 
-![Viz](screenshots/compromised-accounts.png)
+![Viz](dashboards/compromised-accounts.png)
 
 <div dir="rtl" align="right">
 <i>تحليل الحسابات المستهدفة وتحديد الحسابات الحساسة الأكثر تعرضًا للهجوم.</i>
@@ -213,7 +213,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 🎯 <div dir="rtl" align="right">Detection & Use Cases</div>
+# <div dir="rtl" align="right">Detection & Use Cases</div>
 
 | Use Case | Description |
 |---|---|
@@ -227,7 +227,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 🧠 <div dir="rtl" align="right">MITRE ATT&CK Mapping</div>
+# <div dir="rtl" align="right">MITRE ATT&CK Mapping</div>
 
 | Technique ID | Tactic | Technique |
 |---|---|---|
@@ -238,7 +238,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 🖥 <div dir="rtl" align="right">المرحلة الرابعة: SOC Monitoring & Incident Response</div>
+#  <div dir="rtl" align="right">المرحلة الرابعة: SOC Monitoring & Incident Response</div>
 
 <div dir="rtl" align="right">
 
@@ -248,9 +248,9 @@ index=wineventlog EventCode=4625
 
 ---
 
-## 📡 SOC Dashboard & Alert Visualization
+## SOC Dashboard & Alert Visualization
 
-![Dashboard](screenshots/soc-dashboard.png)
+![Dashboard](dashboards/soc-dashboard.png)
 
 ![Details](screenshots/alert-details.png)
 
@@ -262,7 +262,7 @@ index=wineventlog EventCode=4625
 
 ## 🚨 Automated Alerting Workflow
 
-![Workflow](screenshots/alert-workflow.png)
+![Workflow](alerts/alert-workflow.png)
 
 ![Active](screenshots/active-alerts.png)
 
@@ -275,7 +275,7 @@ index=wineventlog EventCode=4625
 للاطلاع على سير عمل التنبيهات وقواعد الاكتشاف، قم بزيارة مجلد [Alerts](alerts/).
 ---
 
-# 🛡️ <div dir="rtl" align="right">SOC Recommendations</div>
+# <div dir="rtl" align="right">SOC Recommendations</div>
 
 - حظر الـ IPs المشبوهة على مستوى الـ Firewall
 - تفعيل سياسات Account Lockout
@@ -286,7 +286,7 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 🏁 <div dir="rtl" align="right">Closing the Case</div>
+# <div dir="rtl" align="right">Closing the Case</div>
 
 <div dir="rtl" align="right">
 
@@ -304,18 +304,17 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 📂 Repository Structure
+# Repository Structure
 
 ```text
 CyberSentinel-Splunk/
 │
-├── screenshots/
-├── SPL-Queries/
-├── dashboards/
-├── alerts/
-├── README.md
+├── [screenshots/](screenshots/)
+├── [SPL-Queries/](SPL-Queries/)
+├── [dashboards/](dashboards/)
+├── [alerts/](alerts/)
+└── [README.md](README.md)
 ```
-
 ---
 
 # SOC Analyst Path
