@@ -252,8 +252,6 @@ index=wineventlog EventCode=4625
 
 ![Dashboard](dashboards/soc-dashboard.png)
 
-![Details](screenshots/alert-details.png)
-
 <div dir="rtl" align="right">
 <i>بناء Dashboard تفاعلي لعرض الأنشطة الأمنية والتنبيهات بشكل لحظي.</i>
 </div>
@@ -307,7 +305,6 @@ index=wineventlog EventCode=4625
 # 📂 Repository Structure
 
 * [screenshots/](screenshots/): لقطات شاشة لخطوات التحليل موثقة من بيئة العمل.
-* [pcap_files/](pcap_files/): أدلة جنائية (PCAP) مضغوطة بكلمة مرور `infected`.
 * [README.md](README.md): هذا التقرير التحليلي.
 * [alerts/](alerts/): منهجية التنبيه (Alerting Workflow) وقواعد الاكتشاف.
 * [dashboards/](dashboards/): واجهات المراقبة المرئية (Dashboards).
