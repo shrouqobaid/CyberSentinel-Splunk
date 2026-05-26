@@ -321,10 +321,10 @@ index=wineventlog EventCode=4625
 <div dir="rtl" align="right">
 
 هذا المشروع جزء من رحلتي في:
+
+</div>
 - SOC Analysis
 - Threat Hunting
 - Detection Engineering
 - SIEM Monitoring
 - Incident Response
-
-</div>
