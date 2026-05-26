@@ -10,24 +10,24 @@
 # 🛡️ CyberSentinel Architecture
 
 ```text
-          +-------------------+
-          |   Log Sources     |
-          | Windows / Sysmon  |
-          +---------+---------+
-                    |
-                    v
-          +-------------------+
-          |     Splunk SIEM   |
-          | Indexing & Search |
-          +---------+---------+
-                    |
-        +-----------+-----------+
-        |                       |
-        v                       v
-+---------------+     +------------------+
-| SPL Detection |     | SOC Dashboard    |
-| Correlation   |     | Visualization    |
-+-------+-------+     +--------+---------+
+           +-------------------+
+           |    Log Sources    |
+           | Windows / Sysmon  |
+           +---------+---------+
+                     |
+                     v
+           +-------------------+
+           |     Splunk SIEM   |
+           | Indexing & Search |
+           +---------+---------+
+                     |
+         +-----------+-----------+
+         |                       |
+         v                       v
++---------------+    +------------------+
+| SPL Detection |    | SOC Dashboard    |
+| Correlation   |    | Visualization    |
++-------+-------+    +--------+---------+
         |                       |
         +-----------+-----------+
                     |
@@ -37,7 +37,6 @@
           | Incident Response |
           +-------------------+
 ```
-
 ---
 
 # 🔍 <div dir="rtl" align="right">سيناريو التحقيق الأمني (Investigation Scenario)</div>
@@ -271,6 +270,9 @@ index=wineventlog EventCode=4625
 <i>إنشاء Alerting Workflow يعمل تلقائيًا لرصد أي نشاط Brute Force وإشعار فريق الـ SOC.</i>
 </div>
 
+
+## 🚨 Security Alerts
+للاطلاع على سير عمل التنبيهات وقواعد الاكتشاف، قم بزيارة مجلد [Alerts](alerts/).
 ---
 
 # 🛡️ <div dir="rtl" align="right">SOC Recommendations</div>
