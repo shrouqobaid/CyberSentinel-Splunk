@@ -1,79 +1,58 @@
 # CyberSentinel: Splunk Security Analytics
 
-هذا التقرير يوثق رحلة التحليل الأمني المتقدم باستخدام منصة **Splunk Enterprise**. يتضمن المشروع استكشاف البيانات الخام، تنفيذ استعلامات تحليلية دقيقة لاكتشاف هجمات "القوة الغاشمة" (Brute-Force)، وبناء لوحة تحكم مركزية (Dashboard) لمراقبة التهديدات الأمنية في الوقت الفعلي.
+![Tool](https://img.shields.io/badge/Tool-Splunk-blue) ![Status](https://img.shields.io/badge/Status-Completed-brightgreen) ![Category](https://img.shields.io/badge/Category-Threat_Detection-red)
+
+## 🔍 نبذة عن المشروع
+هذا المشروع ليس مجرد توثيق لخطوات تقنية، بل هو محاكاة لعملية رصد وتحليل تهديدات أمنية رقمية. قمتُ باستخدام **Splunk** لتحليل سجلات ويندوز ضمن مجموعة بيانات **BOTSv3**، بهدف اكتشاف هجمات القوة الغاشمة (Brute-Force Attacks)، وتطوير نظام إنذار مبكر يحمي الأصول الرقمية.
 
 ---
 
-## فهرس المحتويات
-1. [نظرة عامة على المشروع](#-نظرة-عامة-على-المشروع)
-2. [إعداد البيئة والتحليل المبدئي](#-إعداد-البيئة-والتحليل-المبدئي)
-3. [التحقيق والتحليل الأمني](#-التحقيق-والتحليل-الأمني)
-4. [النتائج الجنائية](#-النتائج-الجنائية)
-5. [لوحة التحكم الأمنية (Dashboard)](#-لوحة-التحكم-الأمنية)
-6. [الاستجابة والإنذار المبكر](#-الاستجابة-والإنذار-المبكر)
+## ⚙️ تفاصيل بيئة العمل
+* **الأداة الأساسية:** Splunk Enterprise.
+* **مجموعة البيانات:** BOTSv3 Dataset.
+* **الهدف الأمني:** رصد الأحداث الأمنية ذات الرمز `4625` (فشل تسجيل الدخول) وتتبع مصادر الهجوم.
 
 ---
 
-## نظرة عامة على المشروع
-يهدف هذا المشروع إلى تعزيز "الرؤية الأمنية" داخل الشبكة. من خلال تحليل سجلات ويندوز (Windows Security Logs) ضمن مجموعة بيانات BOTSv3، قمتُ بتصميم نظام قادر على رصد الأنشطة المشبوهة، تحديد عناوين IP المهاجمة، وحماية الحسابات الحساسة من محاولات الاختراق.
+## 🛠 التسلسل الزمني والتحليل الفني (Investigation Steps)
+
+### 1️⃣ إعداد البيئة وتدفق البيانات (Environment Setup)
+بدأتُ العمل بتهيئة الفهارس (Indexes) واستيعاب البيانات (Data Ingestion) لضمان دقة النتائج، وفهم حجم حركة المرور داخل الشبكة.
+* **Environment Setup & Index Configuration:** ![Setup](screenshots/Environment_Setup_&_Index_Configuration.png)
+* **Data Source Analysis & Overview:** ![Analysis](screenshots/Data_Source_Analysis.png)
+* **Initial Data Ingestion & Event Count:** ![Ingestion](screenshots/Initial_Data_Ingestion_&_Event_Count.png)
+
+### 2️⃣ التحقيق في هجمات القوة الغاشمة (Brute-Force Investigation)
+باستخدام لغة استعلامات Splunk (SPL)، قمتُ باستخراج الأنماط المشبوهة وتحديد المتغيرات الأساسية.
+* **Raw Log Data Inspection:** ![Raw Logs](screenshots/Raw_Log_Data_Inspection.png)
+*شرح: فحص السجلات الخام لتحديد اسم المستخدم وعنوان الـ IP المصدر للهجوم.*
+* **Precision SPL for Brute-Force Detection:** ![SPL Query](screenshots/Precision_SPL_for_Brute-Force_Detection.png)
+*شرح: قمت بصياغة استعلام SPL دقيق لحصر محاولات الدخول الفاشلة وتصنيفها حسب التكرار.*
+
+### 3️⃣ النتائج الجنائية وتحليل المهاجمين (Forensic Results)
+بعد التحليل، تم تحديد مصادر الهجوم الأكثر خطورة والحسابات التي كانت عرضة للاختراق.
+* **Top Attacking Source IPs Analysis:** ![Attacking IPs](screenshots/Top_Attacking_Source_IPs_Analysis.png)
+*شرح: استخرجتُ عناوين الـ IP الأكثر نشاطاً، مما مكنني من ربط المصادر المشبوهة ببداية سلسلة الهجوم.*
+* **Targeted Account Analysis:** ![Targeted Accounts](screenshots/Targeted_Account_Analysis.png)
+*شرح: حصر الحسابات الأكثر استهدافاً لتقييم مدى الضرر وتقديم توصيات أمنية بحمايتها.*
 
 ---
 
-## إعداد البيئة والتحليل المبدئي
-بدأت العمل بتهيئة الفهرس (Index) لضمان دقة البيانات، متبوعاً باستكشاف أولي للسجلات الخام لفهم طبيعة حركة المرور داخل الشبكة.
+## الرصد والإنذار (Dashboard & Alerting)
 
-* **Environment Setup & Data Ingestion:**
-![Environment Setup](Environment_setup_index_configuration.png)
-*شرح: تهيئة بيئة العمل داخل Splunk وربط الفهارس لضمان تدفق البيانات بشكل صحيح.*
+###  بناء الداشبورد الأمنية (SOC Dashboard)
+صممتُ واجهة رصد مركزية توفر رؤية شاملة لحظية للتهديدات، مما يسهل على المحللين مراقبة الشبكة.
+* **SOC Threat Monitoring Dashboard:** ![SOC Dashboard](screenshots/SOC_Threat_Monitoring_Dashboard.png)
 
----
-
-## التحقيق والتحليل الأمني
-تم استخدام لغة استعلامات Splunk (SPL) لاستخراج الأنماط غير الطبيعية. ركزتُ على الحدث (EventCode 4625) المرتبط بفشل تسجيل الدخول.
-
-* **Raw Log Data Inspection:**
-![Raw Logs](Raw_log_data_inspection.png)
-*شرح: فحص السجلات الخام لتحديد المتغيرات الأساسية مثل اسم المستخدم وعنوان الـ IP المصدر.*
-
-* **Precision SPL for Brute-Force Detection:**
-![SPL Query](Precision_SPL_for_Brute-Force_detection.png)
-*شرح: كتابة استعلامات دقيقة لحصر محاولات الدخول الفاشلة وتصنيفها حسب التكرار.*
-
----
-
-## النتائج الجنائية
-من خلال التحليل، توصلتُ إلى تحديد المهاجمين الأكثر نشاطاً والحسابات الأكثر استهدافاً.
-
-* **Top Attacking Source IPs Analysis:**
-![Attacking IPs](Top_attacking_source_IPs_analysis.png)
-*شرح: تحديد عناوين الـ IP التي قامت بأكبر عدد من المحاولات المشبوهة للوصول إلى النظام.*
-
-* **Targeted Account Analysis:**
-![Targeted Accounts](Targeted_account_analysis.png)
-*شرح: حصر الحسابات الأكثر تعرضاً للاختراق لتقديم توصيات أمنية بحمايتها بكلمات مرور أقوى.*
-
----
-
-## لوحة التحكم الأمنية
-هي قلب النظام، حيث توفر رؤية شاملة لحظية للتهديدات (Real-time Monitoring) وتسهل اتخاذ القرار الأمني.
-
-* **SOC Threat Monitoring Dashboard:**
-![SOC Dashboard](SOC_Threat_Monitoring_Dashboard.png)
-*شرح: لوحة تحكم متكاملة تعرض الملخص التنفيذي للهجمات وتطور نشاطها بمرور الوقت.*
-
----
-
-## 🔔 الاستجابة والإنذار المبكر
-لضمان سرعة الاستجابة، تم إعداد سير عمل تنبيهات (Alert Workflow) يعمل تلقائياً عند تجاوز أي نشاط أمني للحد المسموح.
-
-* **Alert Creation Workflow:**
-![Alerts](Alert_creation_workflow.png)
-*شرح: أتمتة عملية الرصد من خلال تفعيل تنبيهات لحظية تصل للمشرف عند اكتشاف نمط هجومي.*
+### 🔔 أتمتة التنبيهات (Automated Alerting)
+* **Alert Creation Workflow:** ![Alerts](screenshots/Alert_Creation_Workflow.png)
+*شرح: لقد قمت ببرمجة التنبيه ليعمل بشكل دوري كل ساعة لرصد أي نشاط غير طبيعي وتنبيه الفريق الأمني فوراً كما يظهر في اللقطة أعلاه.*
+* **Active Alert Management:** ![Active Alerts](screenshots/Active_Alert_Management_&_Status.png)
+*شرح: قمتُ بإدارة حالة التنبيهات النشطة للتأكد من فاعلية قواعد الرصد وسرعة الاستجابة.*
 
 ---
 
 ## الخاتمة
-أثبت هذا المشروع فعالية أدوات تحليل البيانات في تحويل السجلات الأمنية إلى معلومات استخباراتية. تم تقليل زمن الكشف عن التهديدات (MTTD) بشكل ملحوظ، مما يساهم في بناء بيئة رقمية أكثر أماناً.
+نجح هذا المشروع في تحويل السجلات الخام إلى معلومات استخباراتية قابلة للتنفيذ. لقد كان تحدياً تقنياً ممتعاً في ربط الاستعلامات بنتائج أمنية ملموسة.
 
 ---
-
