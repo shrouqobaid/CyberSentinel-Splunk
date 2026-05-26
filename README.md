@@ -295,14 +295,13 @@ index=wineventlog EventCode=4625
 
 ---
 
-# Repository Structure
+# 📂 Repository Structure
 
-* [screenshots/](screenshots/) : لقطات شاشة لخطوات التحليل موثقة من بيئة العمل.
-* [alerts/](alerts/) : منهجية التنبيه (Alerting Workflow) وقواعد الاكتشاف.
-* [dashboards/](dashboards/) : واجهات المراقبة المرئية (Dashboards).
-* [SPL-Queries/](SPL-Queries/) : استعلامات Splunk البرمجية المستخدمة في التحليل.
-* [README.md](README.md) : هذا التقرير التحليلي.
-
+* **[alerts/](alerts/)** : <span dir="rtl">منهجية التنبيه (Alerting Workflow) وقواعد الاكتشاف.</span>
+* **[dashboards/](dashboards/)** : <span dir="rtl">واجهات المراقبة المرئية (Dashboards).</span>
+* **[SPL-Queries/](SPL-Queries/)** : <span dir="rtl">الاستعلامات المستخدمة في تحليل Splunk.</span>
+* **[screenshots/](screenshots/)** : <span dir="rtl">لقطات شاشة توثق خطوات العمل.</span>
+* **[README.md](README.md)** : <span dir="rtl">التقرير التحليلي الشامل للمشروع.</span>
 ---
 
 # SOC Analyst Path
