@@ -1,57 +1,330 @@
 # CyberSentinel: Splunk Security Analytics
 
-![Tool](https://img.shields.io/badge/Tool-Splunk-blue) ![Status](https://img.shields.io/badge/Status-Completed-brightgreen) ![Category](https://img.shields.io/badge/Threat_Investigation-red)
-
-## <div dir="rtl" align="right">سيناريو التحقيق الأمني (The Investigation Story)</div>
-<div dir="rtl" align="right">في هذا المشروع، أتقمص دور <b>محلل أمن سيبراني (SOC Analyst)</b> يواجه سلسلة من محاولات اختراق مشبوهة. بدأت القصة بظهور ارتفاع غير مبرر في سجلات فشل تسجيل الدخول، مما دفعني لفتح تحقيق جنائي رقمي باستخدام Splunk للكشف عن هوية المهاجم وتأمين الأصول الرقمية للشركة.</div>
-
----
-
-## <div dir="rtl" align="right">المرحلة الأولى: الاستطلاع وتحليل البيئة (Phase 1: Recon & Ingestion)</div>
-<div dir="rtl" align="right">بدأتُ الرحلة بتهيئة البيئة وفهم حجم التهديد الذي أواجهه.</div>
-
-* **Environment Setup & Source Analysis:** ![Setup](screenshots/environment-setup.png) ![Source](screenshots/data-source.png)
-<div dir="rtl" align="right"><i>شرح: تهيئة الفهارس للتأكد من أننا نرى الصورة الكاملة للهجوم.</i></div>
-
-* **Ingestion Overview:** ![Volume](screenshots/data-volume.png) ![Count](screenshots/ingestion-count.png)
-<div dir="rtl" align="right"><i>شرح: التأكد من تدفق البيانات لضمان عدم وجود "بقع عمياء" في رصدنا.</i></div>
+![Tool](https://img.shields.io/badge/Tool-Splunk-blue)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+![Category](https://img.shields.io/badge/Category-SOC_Investigation-red)
+![Focus](https://img.shields.io/badge/Focus-Detection_Engineering-orange)
 
 ---
 
-## <div dir="rtl" align="right">المرحلة الثانية: مطاردة المهاجم (Phase 2: The Hunt)</div>
-<div dir="rtl" align="right">استخدمتُ لغة SPL لتحويل السجلات الصامتة إلى أدلة ملموسة.</div>
+# 🛡️ CyberSentinel Architecture
 
-* **Log Inspection & Auth Failures:** ![Logs](screenshots/raw-logs.png) ![General](screenshots/auth-failure-query.png)
-<div dir="rtl" align="right"><i>شرح: تحليل سجلات 4625. اكتشفتُ نمطاً متكرراً يشير بوضوح إلى هجوم Brute-Force.</i></div>
+```text
+          +-------------------+
+          |   Log Sources     |
+          | Windows / Sysmon  |
+          +---------+---------+
+                    |
+                    v
+          +-------------------+
+          |     Splunk SIEM   |
+          | Indexing & Search |
+          +---------+---------+
+                    |
+        +-----------+-----------+
+        |                       |
+        v                       v
++---------------+     +------------------+
+| SPL Detection |     | SOC Dashboard    |
+| Correlation   |     | Visualization    |
++-------+-------+     +--------+---------+
+        |                       |
+        +-----------+-----------+
+                    |
+                    v
+          +-------------------+
+          | Alerting Workflow |
+          | Incident Response |
+          +-------------------+
+```
 
-* **Precision SPL Detection:** ![SPL](screenshots/brute-force-spl.png)
-<div dir="rtl" align="right"><i>شرح: صياغة استعلام ذكي لاكتشاف المحاولات الأكثر كثافة ومحاصرة المهاجم.</i></div>
+---
+
+# 🔍 <div dir="rtl" align="right">سيناريو التحقيق الأمني (Investigation Scenario)</div>
+
+<div dir="rtl" align="right">
+
+في هذا المشروع، أتقمص دور <b>SOC Analyst</b> داخل مركز عمليات أمنية يواجه سلسلة من محاولات الاختراق المشبوهة ضد البنية التحتية للشركة.
+
+بدأ التحقيق بعد ملاحظة ارتفاع غير طبيعي في سجلات <b>Failed Logins</b> داخل منصة <b>Splunk SIEM</b>.  
+من خلال تحليل سجلات <b>Windows Event ID 4625</b> واستخدام استعلامات <b>SPL</b>، تمكنت من اكتشاف نشاط <b>Brute Force Attack</b> يستهدف عدة حسابات داخلية.
+
+هدف المشروع هو تحويل السجلات الخام إلى <b>Actionable Threat Intelligence</b> عبر:
+- Detection Engineering
+- Log Analysis
+- Threat Hunting
+- SOC Monitoring
+- Alerting & Response
+
+</div>
 
 ---
 
-## <div dir="rtl" align="right">المرحلة الثالثة: التحليل الجنائي (Phase 3: Forensic Findings)</div>
-<div dir="rtl" align="right">هنا بدأت أربط النقاط ببعضها وأفهم "من" و"ماذا" استهدفوا.</div>
+# ⚙️ <div dir="rtl" align="right">المرحلة الأولى: Recon & Data Ingestion</div>
 
-* **IP Activity & Attacker Identity:** ![IPs](screenshots/top-ips.png) ![Map](screenshots/ip-activity.png) ![Attacker](screenshots/attacker-id.png)
-<div dir="rtl" align="right"><i>شرح: تحديد عناوين الـ IP المهاجمة ورسم خرائط زمنية لنشاطهم.</i></div>
+<div dir="rtl" align="right">
 
-* **Targeted Account Analysis:** ![Targeted](screenshots/targeted-accounts.png) ![Viz](screenshots/compromised-accounts.png)
-<div dir="rtl" align="right"><i>شرح: اكتشاف الحسابات الحساسة التي حاول المهاجم الوصول إليها وتقديم تقرير بها.</i></div>
+بدأتُ بتهيئة بيئة التحليل والتأكد من سلامة عملية <b>Log Ingestion</b> داخل Splunk لضمان عدم وجود أي <b>Blind Spots</b> أثناء التحقيق.
 
----
-
-## <div dir="rtl" align="right">المرحلة الرابعة: الاستجابة والتحصين (Phase 4: Response & Defense)</div>
-<div dir="rtl" align="right">لا يكفي الكشف، يجب أن نغلق الأبواب ونراقب في المستقبل.</div>
-
-* **SOC Dashboard & Alerting:** ![Dashboard](screenshots/soc-dashboard.png) ![Details](screenshots/alert-details.png)
-<div dir="rtl" align="right"><i>شرح: بناء واجهة تحكم لحظية تضعني في قلب الحدث.</i></div>
-
-* **Automated Alerting Workflow:** ![Workflow](screenshots/alert-workflow.png) ![Active](screenshots/active-alerts.png)
-<div dir="rtl" align="right"><i>شرح: "السيناريو الدفاعي": برمجة تنبيهات تعمل كل ساعة لرصد أي محاولة تكرار للهجوم فور وقوعها.</i></div>
+</div>
 
 ---
 
-## 🏁 <div dir="rtl" align="right">الخاتمة (Closing the Case)</div>
-<div dir="rtl" align="right">تم إغلاق التحقيق بعد تحديد المصادر المهاجمة وتفعيل إجراءات الصد. لقد حولنا السجلات الخام إلى "معلومات استخباراتية" (Threat Intel) تحمي المنظمة.</div>
+## 🔹 Environment Setup & Source Analysis
+
+![Setup](screenshots/environment-setup.png)
+
+![Source](screenshots/data-source.png)
+
+<div dir="rtl" align="right">
+<i>تحليل مصادر البيانات والتأكد من تدفق السجلات بشكل صحيح داخل الـ Indexes.</i>
+</div>
 
 ---
+
+## 🔹 Ingestion Monitoring
+
+![Volume](screenshots/data-volume.png)
+
+![Count](screenshots/ingestion-count.png)
+
+<div dir="rtl" align="right">
+<i>التحقق من استقرار تدفق البيانات ومراقبة حجم السجلات داخل البيئة الأمنية.</i>
+</div>
+
+---
+
+# 🛠 <div dir="rtl" align="right">المرحلة الثانية: Threat Hunting & SPL Detection</div>
+
+<div dir="rtl" align="right">
+
+تم استخدام لغة <b>SPL (Search Processing Language)</b> لتحويل السجلات إلى مؤشرات واضحة تكشف سلوك المهاجم.
+
+</div>
+
+---
+
+## 🔎 Log Inspection & Failed Authentication Analysis
+
+![Logs](screenshots/raw-logs.png)
+
+![General](screenshots/auth-failure-query.png)
+
+<div dir="rtl" align="right">
+<i>تحليل سجلات Windows Event ID 4625 للكشف عن محاولات تسجيل الدخول الفاشلة واكتشاف أنماط Brute Force.</i>
+</div>
+
+---
+
+## 🎯 Precision SPL Detection
+
+![SPL](screenshots/brute-force-spl.png)
+
+<div dir="rtl" align="right">
+<i>إنشاء SPL Detection Logic لتحديد أكثر عناوين IP نشاطًا وربطها بالمحاولات المشبوهة.</i>
+</div>
+
+---
+
+# 💻 <div dir="rtl" align="right">Core SPL Detection Queries</div>
+
+## 🔐 Brute Force Detection
+
+```spl
+index=wineventlog EventCode=4625
+| stats count by src_ip Account_Name
+| where count > 10
+| sort - count
+```
+
+---
+
+## 🌍 Top Attacking IP Addresses
+
+```spl
+index=wineventlog EventCode=4625
+| top limit=10 src_ip
+```
+
+---
+
+## 👤 Targeted Accounts Detection
+
+```spl
+index=wineventlog EventCode=4625
+| stats count by Account_Name
+| sort - count
+```
+
+---
+
+## 🚨 Suspicious Login Activity Timeline
+
+```spl
+index=wineventlog EventCode=4625
+| timechart count by src_ip
+```
+
+---
+
+## ⚡ High Frequency Authentication Attempts
+
+```spl
+index=wineventlog EventCode=4625
+| bucket _time span=5m
+| stats count by _time src_ip
+| where count > 20
+```
+
+---
+
+# 📊 <div dir="rtl" align="right">المرحلة الثالثة: Forensic Findings</div>
+
+<div dir="rtl" align="right">
+
+بعد تحليل السجلات، بدأتُ بربط الأحداث وتحويل البيانات إلى أدلة رقمية واضحة تساعد في فهم سلوك المهاجم.
+
+</div>
+
+---
+
+## 🌐 IP Activity & Attacker Tracking
+
+![IPs](screenshots/top-ips.png)
+
+![Map](screenshots/ip-activity.png)
+
+![Attacker](screenshots/attacker-id.png)
+
+<div dir="rtl" align="right">
+<i>تحديد الـ IPs الأكثر نشاطًا وتحليل نمط الحركة الخاصة بالمهاجم.</i>
+</div>
+
+---
+
+## 👥 Targeted Accounts Analysis
+
+![Targeted](screenshots/targeted-accounts.png)
+
+![Viz](screenshots/compromised-accounts.png)
+
+<div dir="rtl" align="right">
+<i>تحليل الحسابات المستهدفة وتحديد الحسابات الحساسة الأكثر تعرضًا للهجوم.</i>
+</div>
+
+---
+
+# 🎯 <div dir="rtl" align="right">Detection & Use Cases</div>
+
+| Use Case | Description |
+|---|---|
+| Brute Force Detection | اكتشاف محاولات تسجيل الدخول الفاشلة المتكررة |
+| Suspicious Login Monitoring | مراقبة محاولات الدخول غير الطبيعية |
+| Threat Hunting | البحث عن أنماط هجوم داخل السجلات |
+| IOC Identification | استخراج مؤشرات الاختراق |
+| Account Abuse Detection | اكتشاف استهداف الحسابات الحساسة |
+| SOC Monitoring | مراقبة الأحداث الأمنية لحظيًا |
+| Alert Correlation | ربط التنبيهات وتحليلها |
+
+---
+
+# 🧠 <div dir="rtl" align="right">MITRE ATT&CK Mapping</div>
+
+| Technique ID | Tactic | Technique |
+|---|---|---|
+| T1110 | Credential Access | Brute Force |
+| T1078 | Defense Evasion | Valid Accounts |
+| T1059 | Execution | Command & Scripting |
+| T1087 | Discovery | Account Discovery |
+
+---
+
+# 🖥 <div dir="rtl" align="right">المرحلة الرابعة: SOC Monitoring & Incident Response</div>
+
+<div dir="rtl" align="right">
+
+بعد اكتشاف الهجوم، تم بناء بيئة مراقبة دفاعية تسمح بالكشف المبكر عن أي نشاط مشابه مستقبلًا.
+
+</div>
+
+---
+
+## 📡 SOC Dashboard & Alert Visualization
+
+![Dashboard](screenshots/soc-dashboard.png)
+
+![Details](screenshots/alert-details.png)
+
+<div dir="rtl" align="right">
+<i>بناء Dashboard تفاعلي لعرض الأنشطة الأمنية والتنبيهات بشكل لحظي.</i>
+</div>
+
+---
+
+## 🚨 Automated Alerting Workflow
+
+![Workflow](screenshots/alert-workflow.png)
+
+![Active](screenshots/active-alerts.png)
+
+<div dir="rtl" align="right">
+<i>إنشاء Alerting Workflow يعمل تلقائيًا لرصد أي نشاط Brute Force وإشعار فريق الـ SOC.</i>
+</div>
+
+---
+
+# 🛡️ <div dir="rtl" align="right">SOC Recommendations</div>
+
+- حظر الـ IPs المشبوهة على مستوى الـ Firewall
+- تفعيل سياسات Account Lockout
+- مراقبة محاولات Authentication الفاشلة بشكل مستمر
+- تفعيل Multi-Factor Authentication (MFA)
+- إنشاء Correlation Rules داخل Splunk
+- تحسين Log Retention وVisibility
+
+---
+
+# 🏁 <div dir="rtl" align="right">Closing the Case</div>
+
+<div dir="rtl" align="right">
+
+تمكنت من:
+- اكتشاف هجوم Brute Force
+- تحديد الـ IPs المهاجمة
+- تحليل الحسابات المستهدفة
+- بناء Detection Logic داخل Splunk
+- إنشاء SOC Dashboard للمراقبة اللحظية
+- تفعيل Automated Alerts لتحسين سرعة الاستجابة
+
+هذا المشروع يمثل محاكاة عملية لدور <b>Junior SOC Analyst</b> داخل بيئة SIEM حقيقية.
+
+</div>
+
+---
+
+# 📂 Repository Structure
+
+```text
+CyberSentinel-Splunk/
+│
+├── screenshots/
+├── SPL-Queries/
+├── dashboards/
+├── alerts/
+├── README.md
+```
+
+---
+
+# SOC Analyst Path
+
+<div dir="rtl" align="right">
+
+هذا المشروع جزء من رحلتي في:
+- SOC Analysis
+- Threat Hunting
+- Detection Engineering
+- SIEM Monitoring
+- Incident Response
+
+</div>
