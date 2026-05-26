@@ -39,24 +39,17 @@
 ```
 ---
 
-# <div dir="rtl" align="right">سيناريو التحقيق الأمني (Investigation Scenario)</div>
+# Investigation Scenario
 
 <div dir="rtl" align="right">
-
-في هذا المشروع، أتقمص دور <b>SOC Analyst</b> داخل مركز عمليات أمنية يواجه سلسلة من محاولات الاختراق المشبوهة ضد البنية التحتية للشركة.
-
-بدأ التحقيق بعد ملاحظة ارتفاع غير طبيعي في سجلات <b>Failed Logins</b> داخل منصة <b>Splunk SIEM</b>.  
-من خلال تحليل سجلات <b>Windows Event ID 4625</b> واستخدام استعلامات <b>SPL</b>، تمكنت من اكتشاف نشاط <b>Brute Force Attack</b> يستهدف عدة حسابات داخلية.
-
 هدف المشروع هو تحويل السجلات الخام إلى <b>Actionable Threat Intelligence</b> عبر:
-- Detection Engineering
-- Log Analysis
-- Threat Hunting
-- SOC Monitoring
-- Alerting & Response
-
 </div>
 
+* **Detection Engineering**
+* **Log Analysis**
+* **Threat Hunting**
+* **SOC Monitoring**
+* **Alerting & Response**
 ---
 
 # <div dir="rtl" align="right">المرحلة الأولى: Recon & Data Ingestion</div>
@@ -302,14 +295,13 @@ index=wineventlog EventCode=4625
 
 ---
 
-# 📂 Repository Structure
+# Repository Structure
 
-* [screenshots/](screenshots/): لقطات شاشة لخطوات التحليل موثقة من بيئة العمل.
-* [README.md](README.md): هذا التقرير التحليلي.
-* [alerts/](alerts/): منهجية التنبيه (Alerting Workflow) وقواعد الاكتشاف.
-* [dashboards/](dashboards/): واجهات المراقبة المرئية (Dashboards).
-* [SPL-Queries/](SPL-Queries/): استعلامات Splunk البرمجية المستخدمة في التحليل.
-
+* [screenshots/](screenshots/) : لقطات شاشة لخطوات التحليل موثقة من بيئة العمل.
+* [alerts/](alerts/) : منهجية التنبيه (Alerting Workflow) وقواعد الاكتشاف.
+* [dashboards/](dashboards/) : واجهات المراقبة المرئية (Dashboards).
+* [SPL-Queries/](SPL-Queries/) : استعلامات Splunk البرمجية المستخدمة في التحليل.
+* [README.md](README.md) : هذا التقرير التحليلي.
 
 ---
 
