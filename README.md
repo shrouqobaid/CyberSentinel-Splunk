@@ -304,17 +304,16 @@ index=wineventlog EventCode=4625
 
 ---
 
-# Repository Structure
+# 📂 Repository Structure
 
-```text
-CyberSentinel-Splunk/
-│
-├── [screenshots/](screenshots/)
-├── [SPL-Queries/](SPL-Queries/)
-├── [dashboards/](dashboards/)
-├── [alerts/](alerts/)
-└── [README.md](README.md)
-```
+* [screenshots/](screenshots/): لقطات شاشة لخطوات التحليل موثقة من بيئة العمل.
+* [pcap_files/](pcap_files/): أدلة جنائية (PCAP) مضغوطة بكلمة مرور `infected`.
+* [README.md](README.md): هذا التقرير التحليلي.
+* [alerts/](alerts/): منهجية التنبيه (Alerting Workflow) وقواعد الاكتشاف.
+* [dashboards/](dashboards/): واجهات المراقبة المرئية (Dashboards).
+* [SPL-Queries/](SPL-Queries/): استعلامات Splunk البرمجية المستخدمة في التحليل.
+
+
 ---
 
 # SOC Analyst Path
