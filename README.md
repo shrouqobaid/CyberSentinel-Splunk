@@ -3,7 +3,6 @@
 ![Security-Lab](https://img.shields.io/badge/Project-CyberSentinel-blue)
 
 ![Tool](https://img.shields.io/badge/Tool-Splunk-blue)
-![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 ![Category](https://img.shields.io/badge/Category-SOC_Investigation-red)
 ![Focus](https://img.shields.io/badge/Focus-Detection_Engineering-orange)
 
